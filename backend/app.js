@@ -3,7 +3,7 @@ SERVER SIDE LOGIC
 */
 
 import express from 'express';
-import { getOrders, getSpecificOrder, placeOrder } from './db/database.js';
+import { getOrders, getSpecificOrder, placeOrder } from '../database/database.js';
 
 // declare a var. that call the library's main function
 const app = express();
