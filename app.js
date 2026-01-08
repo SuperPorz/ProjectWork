@@ -1,56 +1,49 @@
-// assign to a declared var. the rxpress library
-const express = require('express');
+/* 
+SERVER SIDE LOGIC
+*/
 
-// declare a var. that call a library's function, the main one
+import express from 'express';
+import { getOrders, getSpecificOrder, placeOrder } from './db/database.js';
+
+// declare a var. that call the library's main function
 const app = express();
 
-// let the app be ready to listen the requests, specifing the port
-app.listen(3000);
+//json API -> the req.body will be forced to be a valid JSON
+app.use(express.json());
 
-/* ROUTES */
+/*///////////////// ROUTES //////////////////////*/
 // homepage
 app.get('/', (req, res) => {
     res.send('Welcome to ProjectWork\'s Homepage!');
 });
 
 // orders list (GET request)
-app.get('/orders', (req, res) => {
-    //implementa logica di conessione al DB
-    const data = [
+app.get('/orders', async (req, res) => {
+    const data = await getOrders();
+    res.send(data);
+});
 
-        {
-            id: 25,
-            customer: 'franco',
-            product: 'pencil',
-            quantity: 3,
-            order_date: '02/01/2026'
-        },
-        {
-            id: 29,
-            customer: 'giuseppa',
-            product: 'glasses',
-            quantity: 1,
-            order_date: '03/01/2026'
-        },
-        {
-            id: 31,
-            customer: 'matusalem',
-            product: 'plastic bottle',
-            quantity: 11,
-            order_date: '04/01/2026'
-        },
-    ];
-
-    //risposta al client con JSON dei dati fetchati dal DB
+// get a specific order (GET request)
+app.get('/orders/:id', async (req, res) => {
+    const id = req.params.id;
+    const data = await getSpecificOrder(id);
     res.send(data);
 });
 
 // add new order (POST request)
-app.post('/orders', (req, res) => {
-    //implementa logica di salvataggio dati POST inviati (id, customer, product...)
+app.post('/orders', async (req, res) => {
+    const {customer, product, quantity} = req.body;
+    const order = await placeOrder(customer,product,quantity);
+    res.status(201).send('New order successfully added!');
+});
 
-    //implementa logica di connessione al DB e inserimento dati
+/*/////////////////// USE AND LISTEN /////////////////////*/
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+})
 
-    //invia risposta di avvenuto inserimento dati nel DB
-    res.send('New order successfully added!');
+// let the app be ready to listen the requests on the specified port
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
 });
