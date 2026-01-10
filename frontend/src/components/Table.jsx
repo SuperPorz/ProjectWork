@@ -1,6 +1,7 @@
 function Table() {
     return(
         <>
+            <p>TABLE</p>
         </>
     )
 }
