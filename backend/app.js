@@ -3,13 +3,17 @@ SERVER SIDE LOGIC
 */
 
 import express from 'express';
+import cors from 'cors';
 import { getOrders, getSpecificOrder, placeOrder } from './db/database.js';
 
-// declare a var. that call the library's main function
+//declare a variable to call the main express library's function
 const app = express();
 
 //json API -> the req.body will be forced to be a valid JSON
 app.use(express.json());
+app.use(cors())
+
+//Enable All CORS Requests
 
 /*///////////////// ROUTES //////////////////////*/
 // homepage
