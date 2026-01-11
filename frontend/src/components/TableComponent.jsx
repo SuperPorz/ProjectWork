@@ -1,6 +1,18 @@
 import Table from 'react-bootstrap/Table';
+import { useState, useEffect } from 'react';
 
 function TableComponent() {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3000/orders')
+        .then((response) => response.json())
+        .then((data) => {
+            setData(data);
+            console.log(data);
+        })
+    }, []);
+
     return(
        <Table striped bordered hover size="md">
       <thead>
@@ -13,27 +25,17 @@ function TableComponent() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark Fluttenmberg</td>
-          <td>table</td>
-          <td>1</td>
-          <td>12/04/2025</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>John Bondi</td>
-          <td>t-shirt</td>
-          <td>4</td>
-          <td>26/09/2025</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Lina Rosalia</td>
-          <td>oil bottle</td>
-          <td>5</td>
-          <td>03/01/2026</td>
-        </tr>
+        {
+            data.map((item) => (
+                <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.customer}</td>
+                    <td>{item.product}</td>
+                    <td>{item.quantity}</td>
+                    <td>{new Date(item.order_date).toLocaleDateString('it-IT')}</td>
+                </tr>
+            ))
+        }
       </tbody>
     </Table>
     )
