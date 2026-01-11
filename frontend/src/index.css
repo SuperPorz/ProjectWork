@@ -1,11 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Quantico:wght@400;700&display=swap');
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  --bg-dark: #0a0e17;
+  --bg-secondary: #1a1f2e;
+  --bg-card: #151b28;
+  --accent-cyan: #00d4ff;
+  --accent-cyan-dark: #0099cc;
+  --text-primary: #e8edf4;
+  --text-secondary: #8b94a8;
+  --border-color: #2a3447;
+  
+  font-family: 'Quantico', system-ui, sans-serif;
+  line-height: 1.6;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: dark;
+  color: var(--text-primary);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,21 +23,35 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  /* colore di sfondo qui */
-  background-color: #3c4248 !important;
+  background-color: var(--bg-dark) !important;
+  color: var(--text-primary) !important;
+}
+
+a {
+  font-weight: 500;
+  color: var(--accent-cyan);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-cyan-dark);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-primary);
 }
 
 h1 {
@@ -36,40 +60,303 @@ h1 {
 }
 
 #title {
-  font-size: 40px;
+  font-size: 2.5rem;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
+  border-radius: 4px;
+  border: 2px solid var(--accent-cyan);
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font-weight: 600;
+  font-family: 'Quantico', sans-serif;
+  background-color: transparent;
+  color: var(--accent-cyan);
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #3c4248; /* ← Mantieni lo stesso colore */
-  }
-  body {
-    background-color: #3c4248; /* ← Aggiungi anche qui */
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+button:hover {
+  background-color: var(--accent-cyan);
+  color: var(--bg-dark);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+/* Bootstrap overrides */
+.btn-primary {
+  background-color: var(--accent-cyan) !important;
+  border: 2px solid var(--accent-cyan) !important;
+  color: var(--bg-dark) !important;
+  font-family: 'Quantico', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: var(--accent-cyan-dark) !important;
+  border-color: var(--accent-cyan-dark) !important;
+  color: var(--bg-dark) !important;
+  transform: translateY(-1px);
+}
+
+/* Form Controls - CRITICAL FIX */
+.form-control,
+.form-select {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  font-family: 'Quantico', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.form-control::placeholder {
+  color: var(--text-secondary) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--accent-cyan) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.15) !important;
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-secondary) !important;
+}
+
+/* Floating Labels - CRITICAL FIX */
+.form-floating > label {
+  color: var(--text-secondary) !important;
+  background-color: transparent !important;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
+  color: var(--accent-cyan) !important;
+  background-color: transparent !important;
+}
+
+.form-floating > .form-control:-webkit-autofill ~ label {
+  color: var(--accent-cyan) !important;
+}
+
+/* Input Groups */
+.input-group-text {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Tables - CRITICAL FIX */
+.table {
+  color: var(--text-primary) !important;
+  font-family: 'Quantico', sans-serif;
+  background-color: transparent !important;
+  border-color: var(--border-color) !important;
+}
+
+.table > :not(caption) > * > * {
+  color: var(--text-primary) !important;
+  background-color: transparent !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.table-striped > tbody > tr:nth-of-type(even) > * {
+  background-color: transparent !important;
+  color: var(--text-primary) !important;
+}
+
+.table-bordered {
+  border-color: var(--border-color) !important;
+}
+
+.table-bordered > :not(caption) > * {
+  border-color: var(--border-color) !important;
+}
+
+.table-bordered > :not(caption) > * > * {
+  border-color: var(--border-color) !important;
+}
+
+.table-hover > tbody > tr:hover > * {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.table thead,
+.table thead th {
+  background-color: var(--bg-secondary) !important;
+  border-bottom: 2px solid var(--accent-cyan) !important;
+  color: var(--text-primary) !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.table tbody td,
+.table tbody th {
+  color: var(--text-primary) !important;
+}
+
+/* Carousel */
+.carousel-caption h3 {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent-cyan);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: var(--accent-cyan);
+}
+
+/* Text utilities */
+.text-muted {
+  color: var(--text-secondary) !important;
+}
+
+/* Navbar styling */
+.navbar.bg-body-tertiary {
+  background-color: var(--bg-secondary) !important;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand,
+.nav-link {
+  color: var(--text-primary) !important;
+  font-family: 'Quantico', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent-cyan) !important;
+}
+
+.nav-link:active,
+.nav-link.active {
+  color: var(--accent-cyan) !important;
+}
+
+.navbar-toggler {
+  border-color: var(--border-color) !important;
+}
+
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+/* Footer styling */
+footer.bg-body-tertiary {
+  background-color: var(--bg-secondary) !important;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-primary) !important;
+  margin-top: auto;
+}
+
+footer i {
+  color: var(--text-secondary) !important;
+  font-family: 'Quantico', sans-serif;
+  font-size: 0.9rem;
+}
+
+/* Container customization */
+.container {
+  font-family: 'Quantico', sans-serif;
+}
+
+/* Card/Section styling */
+.card {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+.card-body {
+  color: var(--text-primary) !important;
+}
+
+/* Row and Col */
+.row {
+  color: var(--text-primary);
+}
+
+/* Modals */
+.modal-content {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.modal-header,
+.modal-footer {
+  border-color: var(--border-color) !important;
+}
+
+/* Dropdowns */
+.dropdown-menu {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dropdown-item {
+  color: var(--text-primary) !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: var(--bg-secondary) !important;
+  color: var(--accent-cyan) !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-secondary);
+  border-radius: 5px;
+  border: 2px solid var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-color);
 }
