@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 
-function FormComponent() {
+function FormComponent({ onOrderAdded }) {
   const [customer, setCustomer] = useState('');
   const [product, setProduct] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -29,13 +29,13 @@ function FormComponent() {
         setProduct('');
         setQuantity('');
         alert('Order successfully added');
+        onOrderAdded(); // call the callback func. to update table
       }
     });
   }
 
   return (
     <Form onSubmit={handleSubmit}>
-
       <FloatingLabel
         controlId="floatingInput1"
         label="Customer name & surname"

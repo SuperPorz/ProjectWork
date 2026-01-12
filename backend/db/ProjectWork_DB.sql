@@ -52,3 +52,5 @@ VALUES ('Sophia Walker', 'Printer', 1, '2026-01-10');
 
 ########################################### TEST QUERY
 SELECT * FROM orders;
+
+TRUNCATE TABLE orders;

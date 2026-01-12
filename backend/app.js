@@ -4,17 +4,19 @@ SERVER SIDE LOGIC
 
 import express from 'express';
 import cors from 'cors';
-import { getOrders, getSpecificOrder, placeOrder } from './db/database.js';
+import { deleteOrder, getOrders, getSpecificOrder, placeOrder } from './db/database.js';
 
 //declare a variable to call the main express library's function
 const app = express();
 
 //json API -> the req.body will be forced to be a valid JSON
 app.use(express.json());
-app.use(cors())
 
 //Enable All CORS Requests
+app.use(cors())
 
+
+///////////////////////////////////////////////////
 /*///////////////// ROUTES //////////////////////*/
 // homepage
 app.get('/', (req, res) => {
@@ -41,6 +43,19 @@ app.post('/orders', async (req, res) => {
     res.status(201).send('New order successfully added!');
 });
 
+// delete a specific order (DELETE REQUEST)
+app.delete('/orders', async (req, res) => {
+    const { id } = req.body;
+    const result = await deleteOrder(id);
+      
+    if (result.success) {
+        res.status(200).json(result);
+    } else {
+        res.status(404).json(result);
+    }
+});
+
+////////////////////////////////////////////////////////////
 /*/////////////////// USE AND LISTEN /////////////////////*/
 app.use((err, req, res, next) => {
     console.error(err.stack);

@@ -1,8 +1,15 @@
 import { Col, Row, Container } from "react-bootstrap";
 import FormComponent from "./FormComponent";
 import TableComponent from "./TableComponent";
+import { useState } from "react";
 
 function Orders() {
+  const [refresh, setRefresh] = useState(0);
+
+  const triggerRefresh = () => {
+    setRefresh(prev => prev + 1);
+  };
+
   return (
     <Container className="py-5">
       <Row className="justify-content-md-center mb-5">
@@ -24,7 +31,7 @@ function Orders() {
             }}>
               Place Order
             </h1>
-            <FormComponent />
+            <FormComponent onOrderAdded={triggerRefresh} />
           </div>
         </Col>
       </Row>
@@ -48,7 +55,7 @@ function Orders() {
             }}>
               Order List
             </h1>
-            <TableComponent />
+            <TableComponent refresh={refresh} onOrderDeleted={triggerRefresh} />
           </div>
         </Col>
       </Row>

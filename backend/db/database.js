@@ -55,10 +55,25 @@ export async function placeOrder(customer, product, quantity) {
     return rows[0];//returning first row will return an object and not an array
 }
 
-/*//////////////// TEST: CALLING FUNCTIONS ////////////////////*/
-/* const orders1 = await getOrders();
-console.log(orders1);
-
-await placeOrder('miky', '3Dmouse', 3);
-const orders2 = await getOrders();
-console.log(orders2); */
+//delete an ORDER
+export async function deleteOrder(id) {
+    const [result] = await pool.query(`
+    DELETE FROM orders
+    WHERE id = ?;
+    `, [id]);
+        
+    // if atleast 1 row is affected, then operation succeded
+    if (result.affectedRows > 0) {
+        return { 
+            success: true, 
+            message: "Order deleted successfully",
+            affectedRows: result.affectedRows 
+        };
+    } else {
+        return { 
+            success: false, 
+            message: "Failed to delete order",
+            affectedRows: 0 
+        };
+    }
+}
